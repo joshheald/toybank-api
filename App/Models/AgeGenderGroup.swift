@@ -13,7 +13,8 @@ struct AgeGenderGroup {
         case medium
         case low
     }
-
+    
+    let id: String
     let startAge: Int
     let endAge: Int
     let gender: Gender
@@ -24,11 +25,12 @@ struct AgeGenderGroup {
 extension AgeGenderGroup: JsonRepresentable {
     func makeJson() -> Json {
         return Json([
-            "startAge": startAge,
-            "endAge": endAge,
-            "gender": gender.rawValue,
-            "description": description,
-            "urgency": urgency.rawValue
+                        "id": id,
+                        "startAge": startAge,
+                        "endAge": endAge,
+                        "gender": gender.rawValue,
+                        "description": description,
+                        "urgency": urgency.rawValue
         ])
     }
 }
@@ -36,13 +38,14 @@ extension AgeGenderGroup: JsonRepresentable {
 extension AgeGenderGroup {
     static func makeTestData(numberOfGroups count: Int) -> [AgeGenderGroup] {
         var groups = [AgeGenderGroup]()
-        for _ in 0..<count {
+        for i in 0..<count {
+            let id = "group-\(i)"
             let startAge = Int(arc4random_uniform(12))
             let gender = randomGender()
             let urgency = randomUrgency()
             let description = groupDescription(forStartAge: startAge)
             
-            groups.append(AgeGenderGroup(startAge: startAge, endAge: startAge+2, gender: gender, description: description, urgency: urgency))
+            groups.append(AgeGenderGroup(id: id, startAge: startAge, endAge: startAge+2, gender: gender, description: description, urgency: urgency))
         }
         return groups
     }
