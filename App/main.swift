@@ -2,9 +2,13 @@ import Vapor
 
 let app = Application()
 
+let ageGenderGroups = AgeGenderGroup.makeTestData(numberOfGroups: 12)
+
 app.get("age-gender-groups") { request in
-    let group = AgeGenderGroup(startAge: 10, endAge: 12, gender: .male, description: "10-12 year old boy", urgency: .high)
-    return group.makeJson()
+    let groups = ageGenderGroups.map({ group in
+        group.makeJson()
+    })
+    return Json(groups)
 }
 
 app.start(port: 8080)
