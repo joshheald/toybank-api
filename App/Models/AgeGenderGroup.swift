@@ -37,12 +37,15 @@ extension AgeGenderGroup: JsonRepresentable {
 
 extension AgeGenderGroup {
     static func makeTestData(numberOfGroups count: Int) -> [AgeGenderGroup] {
+        let startAges = [1,8,3,0,2,3,5,6,9,12,15, 10]
+        let genders = [1,0,1,0,2,1,0,0,0,1,0,2]
+        let urgencies = [1,0,1,0,2,1,0,0,0,1,0,2]
         var groups = [AgeGenderGroup]()
         for i in 0..<count {
             let id = "group-\(i)"
-            let startAge = Int(arc4random_uniform(12))
-            let gender = randomGender()
-            let urgency = randomUrgency()
+            let startAge = startAges[i]
+            let gender = randomGender(int: genders[i])
+            let urgency = randomUrgency(int: urgencies[i])
             let description = groupDescription(forStartAge: startAge)
             
             groups.append(AgeGenderGroup(id: id, startAge: startAge, endAge: startAge+2, gender: gender, description: description, urgency: urgency))
@@ -50,8 +53,8 @@ extension AgeGenderGroup {
         return groups
     }
     
-    private static func randomGender() -> Gender {
-        switch arc4random_uniform(3) {
+    private static func randomGender(int: Int) -> Gender {
+        switch int {
         case 0:
             return .any
         case 1:
@@ -63,8 +66,8 @@ extension AgeGenderGroup {
         }
     }
     
-    private static func randomUrgency() -> Urgency {
-        switch arc4random_uniform(3) {
+    private static func randomUrgency(int: Int) -> Urgency {
+        switch int {
         case 0:
             return .high
         case 1:
