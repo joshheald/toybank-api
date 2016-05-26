@@ -37,7 +37,7 @@ extension AgeGenderGroup: JsonRepresentable {
 
 extension AgeGenderGroup {
     static func makeTestData(numberOfGroups count: Int) -> [AgeGenderGroup] {
-        let startAges = [1,8,3,0,2,3,5,6,9,12,15, 10]
+        let startAges = [1,8,3,0,2,3,5,6,9,7,4,10]
         let genders = [1,0,1,0,2,1,0,0,0,1,0,2]
         let urgencies = [1,0,1,0,2,1,0,0,0,1,0,2]
         var groups = [AgeGenderGroup]()
